@@ -9,5 +9,8 @@
 require_once __DIR__.'/vendor/autoload.php';
 
 use Xgold\SayHello;
+use Xgold\Member;
 
-echo SayHello::world();
+$memberXgold = Member::getMemberXgold(1);
+
+var_dump($memberXgold);
