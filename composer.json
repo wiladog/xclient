@@ -1,0 +1,20 @@
+{
+    "name": "wiladog/xclient",
+    "description": "is xgold client",
+    "type": "sdk",
+    "authors": [
+    {
+        "name": "wiladog",
+        "email": "wiladog@gmail.com"
+    }],
+    "minimum-stability": "dev",
+    "require":
+    {},
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Xgold\\": "src/"
+        }
+    }
+}
