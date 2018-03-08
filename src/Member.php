@@ -9,6 +9,8 @@
 namespace Xgold;
 
 
+use Xgold\Helper\GzlHttp;
+
 class Member {
 
 
@@ -24,6 +26,18 @@ class Member {
             'expenditure_xgold' => 0,
         ];
 
-        return $data;
+        $url = 'http://xgold.mez100.com.cn/v1/members/point';
+        $data = [
+            'id' => 7,
+            'timestamp' => time()
+        ];
+        $sign = GzlHttp::getSign($data);
+        $data['sign'] = $sign;
+        $rsData = GzlHttp::post($url,$data);
+
+        return $rsData['data']['point'];
+
+
+
     }
 }

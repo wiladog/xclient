@@ -6,11 +6,10 @@
  * Time: 3:42 PM
  */
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use Xgold\SayHello;
 use Xgold\Member;
 
+// 获取用户的XGOLD
 $memberXgold = Member::getMemberXgold(1);
-
 var_dump($memberXgold);
