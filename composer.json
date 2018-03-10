@@ -20,7 +20,8 @@
         "guzzlehttp/guzzle": "~6.0"
     },
     "scripts":{
-        "post-package-install":"Xgold\\Command\\TestCmd::postPackageInstall"
+        "post-package-install":"Xgold\\Command\\TestCmd::postPackageInstall",
+        "post-update-cmd":"Xgold\\Command\\TestCmd::postPackageInstall"
     },
     "autoload":
     {

@@ -16,6 +16,8 @@ var_dump($memberXgold);
 
 
 
+
+
 //             $users = Capsule::table('point_logs_queue')->limit(100)->get();
 //             var_dump($users);
 //            unset()
