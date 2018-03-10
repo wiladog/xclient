@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aac5c9f6-7527-4dbb-a66e-9b4b43fdff2a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/tests/a.php" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/Client.php" afterPath="$PROJECT_DIR$/src/Client.php" />
-      <change beforePath="$PROJECT_DIR$/src/Member.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/SayHello.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tests/test.php" afterPath="$PROJECT_DIR$/tests/test.php" />
-    </list>
+    <list default="true" id="aac5c9f6-7527-4dbb-a66e-9b4b43fdff2a" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -247,12 +240,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520408354236</updated>
-      <workItem from="1520408355595" duration="30751000" />
+      <workItem from="1520408355595" duration="31015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30751000" />
+    <option name="totallyTimeSpent" value="31015000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
