@@ -10,32 +10,53 @@ namespace Xgold;
 
 use Xgold\Helper\GzlHttp;
 
-use Illuminate\Container\Container;
-use Illuminate\Database\Capsule\Manager as Capsule;//如果你不喜欢这个名称，as DB;就好
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Client {
 
+    /** @var array Default request options */
+    protected $config;
+
+    /**
+     * Clients accept an array of constructor parameters.
+     *
+     * Here's an example of creating a client using a base_uri and an array
+     *
+     *     $client = new Client([
+     *         'base_uri'        => 'http://xgold.mez100.com.cn/v1/',
+     *         'database'         => [
+     *              'driver'    => 'mysql',
+     *              'host'      => '192.168.33.10',
+     *              'database'  => 'xgold_infinix_dev',
+     *              'username'  => 'root',
+     *              'password'  => '0.1234',
+     *              'charset'   => 'utf8mb4',
+     *              'collation' => 'utf8mb4_bin',
+     *              'prefix'    => '',
+     *          ],
+     *     ]);
+
+     */
+
+    public function __construct($config = []) {
+
+        $this->config = $config;
+    }
+
 //$url = 'http://xgold.mez100.com.cn/v1/members/point';
 
-    public static function getConfig($key) {
+    public  function getConfig($key) {
         $xgold_base_url = 'http://xgold.mez100.com.cn/v1/';
         $xgold_base_url = 'http://api.xgold.infinix.test/index.php/v1/';
 
-        $database = [
-            'driver'    => 'mysql',
-            'host'      => '192.168.33.10',
-            'database'  => 'xgold_infinix_dev',
-            'username'  => 'root',
-            'password'  => '0.1234',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_bin',
-            'prefix'    => '',
-        ];
+
+        $config = $this->config;
+        $database = $config['database'];
         $allConfig = [
-            'members_point'    => $xgold_base_url . 'members/point', // 获取用户积分
-            'pointlogs_detail' => $xgold_base_url . 'pointlogs/detail', // 交易查询
-            'pointlogs'        => $xgold_base_url . 'pointlogs', // 积分变更
-            'pointlogs_batch'  => $xgold_base_url . 'pointlogs/batch', // 批量 积分变更
+            'members_point'    => $config['base_uri'] . 'members/point', // 获取用户积分
+            'pointlogs_detail' => $config['base_uri'] . 'pointlogs/detail', // 交易查询
+            'pointlogs'        => $config['base_uri'] . 'pointlogs', // 积分变更
+            'pointlogs_batch'  => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
             'database'         => $database,
         ];
 
@@ -43,7 +64,7 @@ class Client {
     }
 
 
-    public static function getMemberXgold($uid) {
+    public  function getMemberXgold($uid) {
 
 
         $data = [
@@ -52,13 +73,13 @@ class Client {
         ];
         $sign = GzlHttp::getSign($data);
         $data['sign'] = $sign;
-        $url = self::getConfig('members_point');
+        $url = $this->getConfig('members_point');
         $rsData = GzlHttp::post($url, $data);
 
         return $rsData['data']['point'];
     }
 
-    public static function getPointlogsDetail($id) {
+    public  function getPointlogsDetail($id) {
 
 
         $data = [
@@ -67,7 +88,7 @@ class Client {
         ];
         $sign = GzlHttp::getSign($data);
         $data['sign'] = $sign;
-        $url = self::getConfig('pointlogs_detail');
+        $url = $this->getConfig('pointlogs_detail');
         $rsData = GzlHttp::post($url, $data);
 
         var_dump($rsData);
@@ -75,7 +96,7 @@ class Client {
 //        return $rsData['data']['point'];
     }
 
-    public static function pointlogs($uid, $appid, $point, $type, $related) {
+    public  function pointlogs($uid, $appid, $point, $type, $related) {
         $data = [
             'uid'     => $uid,
             'appid'   => $appid,
@@ -91,40 +112,26 @@ class Client {
             $capsule = new Capsule;
 
             // 创建链接
-            $database = self::getConfig('database');
+            $database = $this->getConfig('database');
             $capsule->addConnection($database);
             // 设置全局静态可访问
             $capsule->setAsGlobal();
 //            // 启动Eloquent
             $capsule->bootEloquent();
-//            $cur_time = time();
-//            $data['created_at'] = $cur_time;
-//            $data['updated_at'] = $cur_time;
+            $cur_time = time();
+            $data['created_at'] = $cur_time;
+            $data['updated_at'] = $cur_time;
 
-            $plqs = $capsule::table('point_logs_queue')->limit(100)->get();
-            $tmp = '';
-            foreach ($plqs as $plq) {
-                $tmp .= $plq->uid.'-'.$plq->appid.'-'.$plq->point.'-'.$plq->type.'-'.$plq->related.',';
-            }
-            $tmp = substr($tmp, 0, -1);
+            $rs = Capsule::table('point_logs_queue')->insert([$data]);
 
-            $tmpData = [
-                'batch_data' => $tmp,
-                'timestamp' => time(),
-            ];
-            $tmpData['sign'] = GzlHttp::getSign($tmpData);
-
-            $rsData = GzlHttp::post(self::getConfig('pointlogs_batch'), $tmpData);
-
-            var_dump($rsData);
-
+            var_dump($rs);
 
 //            pointlogs_batch
 
 
         } else {
             $data['sign'] = GzlHttp::getSign($data);
-            $rsData = GzlHttp::post(self::getConfig('pointlogs'), $data);
+            $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
             // 定义超时 返回false;
             var_dump($rsData);
         }
