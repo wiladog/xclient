@@ -9,39 +9,53 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Xgold\Client;
-
-require_once __DIR__. '/a.php';
-
-echo __DIR__;
-
-$rs = copy(__DIR__. '/a.php',__DIR__.'/b.php');
-
-var_dump($rs);
-
-
-exit('debug...');
-
-
-$database = [
-    'driver'    => 'mysql',
-    'host'      => '192.168.33.10',
-    'database'  => 'xgold_infinix_dev',
-    'username'  => 'root',
-    'password'  => '0.1234',
-    'charset'   => 'utf8mb4',
-    'collation' => 'utf8mb4_bin',
-    'prefix'    => '',
-];
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 $config = [
     'base_uri' => 'http://api.xgold.infinix.test/index.php/v1/',
-    'database' => $database,
+    'database' => [
+        'driver'    => 'mysql',
+        'host'      => '192.168.33.10',
+        'database'  => 'xgold_infinix_dev',
+        'username'  => 'root',
+        'password'  => '0.1234',
+        'charset'   => 'utf8mb4',
+        'collation' => 'utf8mb4_bin',
+        'prefix'    => '',
+    ],
 ];
-$client = new Client($config);
 
-// 获取用户的XGOLD
-$memberXgold = $client->pointlogs(58,51,200,1,'23434111');
-var_dump($memberXgold);
+/**
+ *  创建新的数据表 point_logs_queue
+ */
+
+/*
+Capsule::schema()->dropIfExists('point_logs_queue');
+Capsule::schema()->create('point_logs_queue', function($table)
+{
+    $table->increments('id');
+    $table->integer('uid');
+    $table->integer('appid');
+    $table->integer('point');
+    $table->tinyInteger('type');
+    $table->string('related');
+    $table->integer('created_at');
+    $table->integer('updated_at');
+
+});
+
+*/
+
+// xclient 使用
+$client = new Client($config);
+$uid = 58;
+// 积分变更
+$rs = $client->pointlogs($uid, 51, 200, 1, '23434111');
+var_dump($rs);
+
+// 积分查询
+$rs = $client->getMemberXgold($uid);
+var_dump($rs);
 
 
 //

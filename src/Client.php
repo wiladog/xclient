@@ -91,9 +91,8 @@ class Client {
         $url = $this->getConfig('pointlogs_detail');
         $rsData = GzlHttp::post($url, $data);
 
-        var_dump($rsData);
+        return $rsData;
 
-//        return $rsData['data']['point'];
     }
 
     public  function pointlogs($uid, $appid, $point, $type, $related) {
@@ -121,22 +120,28 @@ class Client {
             $cur_time = time();
             $data['created_at'] = $cur_time;
             $data['updated_at'] = $cur_time;
-
             $rs = Capsule::table('point_logs_queue')->insert([$data]);
-
-            var_dump($rs);
-
-//            pointlogs_batch
-
-
+            if($rs) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             $data['sign'] = GzlHttp::getSign($data);
             $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
-            // 定义超时 返回false;
-            var_dump($rsData);
+            return $rsData['data']['quid'];
         }
 
+    }
 
+
+    /**
+     * 回调
+     *
+     */
+    public function callback($id) {
+        // 业务处理
+        echo "ok";
     }
 
 
