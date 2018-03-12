@@ -91,7 +91,7 @@ class Client {
         $url = $this->getConfig('pointlogs_detail');
         $rsData = GzlHttp::post($url, $data);
 
-        return $rsData;
+        return $rsData['data'];
 
     }
 
