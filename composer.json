@@ -21,9 +21,7 @@
     "scripts":{
         "post-root-package-install": [
             "@php -r \"file_exists('config.php') || copy('config.example.php', 'config.php');\""
-        ],
-        "post-package-install":"Xgold\\Command\\TestCmd::postPackageInstall",
-        "post-update-cmd":"Xgold\\Command\\TestCmd::postPackageInstall"
+        ]
     },
     "autoload":
     {
