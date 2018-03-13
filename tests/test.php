@@ -6,98 +6,29 @@
  * Time: 3:42 PM
  */
 
-require_once __DIR__ . '/../vendor/autoload.php';
+// 使用示例
+require_once __DIR__ .'/../vendor/autoload.php';
+require __DIR__ .'/config.php';
+
+
 
 use Xgold\Client;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-$config = [
-    'base_uri' => 'http://api.xgold.infinix.test/index.php/v1/',
-    'database' => [
-        'driver'    => 'mysql',
-        'host'      => '192.168.33.10',
-        'database'  => 'xgold_infinix_dev',
-        'username'  => 'root',
-        'password'  => '0.1234',
-        'charset'   => 'utf8mb4',
-        'collation' => 'utf8mb4_bin',
-        'prefix'    => '',
-    ],
-];
-
-/**
- *  创建新的数据表 point_logs_queue
- */
-
-/*
-Capsule::schema()->dropIfExists('point_logs_queue');
-Capsule::schema()->create('point_logs_queue', function($table)
-{
-    $table->increments('id');
-    $table->integer('uid');
-    $table->integer('appid');
-    $table->integer('point');
-    $table->tinyInteger('type');
-    $table->string('related');
-    $table->integer('created_at');
-    $table->integer('updated_at');
-
-});
-
-*/
 
 // xclient 使用
-$client = new Client($config);
-$uid = 58;
+$xgoldClient = new Client($config);
+$uid = 825191;
 // 积分变更
-$rs = $client->pointlogs($uid, 51, 200, 1, '23434111');
+$rs = $xgoldClient->pointlogs($uid, 1, 200, 1, '23434111');
 var_dump($rs);
-
-// 积分查询
-$rs = $client->getMemberXgold($uid);
-var_dump($rs);
-
-
 //
-//$plqs = $capsule::table('point_logs_queue')->limit(100)->get();
-//$tmp = '';
-//foreach ($plqs as $plq) {
-//    $tmp .= $plq->uid.'-'.$plq->appid.'-'.$plq->point.'-'.$plq->type.'-'.$plq->related.',';
-//}
-//$tmp = substr($tmp, 0, -1);
+//// 查询积分记录
+//$tid = 180; // 交易ID
+//$rs = $xgoldClient->getPointlogsDetail($tid);
+//var_dump($rs);
+////
 //
-//$tmpData = [
-//    'batch_data' => $tmp,
-//    'timestamp' => time(),
-//];
-//$tmpData['sign'] = GzlHttp::getSign($tmpData);
-//
-//$rsData = GzlHttp::post($this->getConfig('pointlogs_batch'), $tmpData);
-//
-//var_dump($rsData);
-
-
-//             $users = Capsule::table('point_logs_queue')->limit(100)->get();
-//             var_dump($users);
-//            unset()
-//            $cur_time = time();
-//            $data['created_at'] = $cur_time;
-//            $data['updated_at'] = $cur_time;
-//            Capsule::table('point_logs_queue')->insert([$data]);
-//            Capsule::table('point_logs_queue')->insert([$data]);
-//            Capsule::table('point_logs_queue')->insert([$data]);
-
-//            Capsule::schema()->dropIfExists('point_logs_queue');
-//
-//            Capsule::schema()->create('point_logs_queue', function($table)
-//            {
-//                $table->increments('id');
-//                $table->integer('uid');
-//                $table->integer('appid');
-//                $table->integer('point');
-//                $table->tinyInteger('type');
-//                $table->string('related');
-//                $table->integer('created_at');
-//                $table->integer('updated_at');
-//
-//            });
+//// 获取用户积分
+//$rs = $xgoldClient->getMemberXgold($uid);
+//var_dump($rs);

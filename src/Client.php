@@ -54,6 +54,7 @@ class Client {
         $database = $config['database'];
         $allConfig = [
             'members_point'    => $config['base_uri'] . 'members/point', // 获取用户积分
+            'members_batch_point'    => $config['base_uri'] . 'members/batch/point', // 获取用户积分
             'pointlogs_detail' => $config['base_uri'] . 'pointlogs/detail', // 交易查询
             'pointlogs'        => $config['base_uri'] . 'pointlogs', // 积分变更
             'pointlogs_batch'  => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
@@ -69,6 +70,25 @@ class Client {
 
         $data = [
             'id'        => $uid,
+            'timestamp' => time(),
+        ];
+        $sign = GzlHttp::getSign($data);
+        $data['sign'] = $sign;
+        $url = $this->getConfig('members_batch_point');
+        $rsData = GzlHttp::post($url, $data);
+
+        return $rsData['data']['point'];
+    }
+
+    /**
+     * @param string $uids eg. 1-2-3-4
+     * @return mixed
+     */
+    public  function getBatchMemberXgold($uids) {
+
+
+        $data = [
+            'ids'        => $uids,
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data);
