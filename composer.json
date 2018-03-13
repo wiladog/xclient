@@ -19,7 +19,7 @@
         "php": ">=5.6"
     },
     "scripts":{
-        "post-root-package-install": [
+        "pre-autoload-dump": [
             "@php -r \"file_exists('config.php') || copy('config.example.php', 'config.php');\""
         ]
     },
