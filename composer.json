@@ -18,9 +18,15 @@
     "require-dev": {
         "php": ">=5.6"
     },
-    "scripts":{
-        "pre-autoload-dump": [
-            "@php -r \"file_exists('config.php') || copy('config.example.php', 'config.php');\""
+    "scripts":
+    {
+        "generate-examples": [
+            "@php -r \"file_exists('examples') || mkdir ('examples',0777,true);\"",
+            "@php -r \"file_exists('examples/batchpush.php') || copy('vendor/wiladog/xclient/tests/batchpush.php', 'examples/batchpush.php');\"",
+            "@php -r \"file_exists('examples/config.php') || copy('vendor/wiladog/xclient/tests/config.php', 'examples/config.php');\"",
+            "@php -r \"file_exists('examples/callback.php') || copy('vendor/wiladog/xclient/tests/callback.php', 'examples/callback.php');\"",
+            "@php -r \"file_exists('examples/test.php') || copy('vendor/wiladog/xclient/tests/test.php', 'examples/test.php');\"",
+            "@php -r \"file_exists('examples/point_logs_queue.sql') || copy('vendor/wiladog/xclient/tests/sql/point_logs_queue.sql', 'examples/point_logs_queue.sql');\""
         ]
     },
     "autoload":
