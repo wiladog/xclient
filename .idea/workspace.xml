@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aac5c9f6-7527-4dbb-a66e-9b4b43fdff2a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/xclient.iml" afterPath="$PROJECT_DIR$/.idea/xclient.iml" />
-      <change beforePath="$PROJECT_DIR$/b.php" afterPath="$PROJECT_DIR$/b.php" />
-      <change beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change beforePath="$PROJECT_DIR$/src/Client.php" afterPath="$PROJECT_DIR$/src/Client.php" />
-      <change beforePath="$PROJECT_DIR$/src/Commands/TestCmd.php" afterPath="$PROJECT_DIR$/src/Commands/TestCmd.php" />
-      <change beforePath="$PROJECT_DIR$/src/Helper/GzlHttp.php" afterPath="$PROJECT_DIR$/src/Helper/GzlHttp.php" />
-      <change beforePath="$PROJECT_DIR$/src/bin/xclt" afterPath="$PROJECT_DIR$/src/bin/xclt" />
-      <change beforePath="$PROJECT_DIR$/src/config/config.php" afterPath="$PROJECT_DIR$/src/config/config.php" />
       <change beforePath="$PROJECT_DIR$/tests/batchpush.php" afterPath="$PROJECT_DIR$/tests/batchpush.php" />
       <change beforePath="$PROJECT_DIR$/tests/callback.php" afterPath="$PROJECT_DIR$/tests/callback.php" />
       <change beforePath="$PROJECT_DIR$/tests/config.php" afterPath="$PROJECT_DIR$/tests/config.php" />
@@ -57,23 +46,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="19" column="33" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="33" />
+            <state relative-caret-position="391">
+              <caret line="22" column="2" lean-forward="true" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
               <folding>
-                <element signature="e#185#202#0#PHP" expanded="true" />
+                <element signature="e#183#200#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="point_logs_queue.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/sql/point_logs_queue.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+            <state relative-caret-position="115">
+              <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -92,8 +91,8 @@
       <file leaf-file-name="batchpush.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/batchpush.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="842">
-              <caret line="40" column="66" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="66" />
+            <state relative-caret-position="406">
+              <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="52" />
               <folding>
                 <element signature="e#117#142#0#PHP" expanded="true" />
               </folding>
@@ -105,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/tests/callback.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="23">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,11 +138,11 @@
         <option value="$PROJECT_DIR$/tests/a.php" />
         <option value="$PROJECT_DIR$/src/config/config.php" />
         <option value="$PROJECT_DIR$/src/Client.php" />
-        <option value="$PROJECT_DIR$/tests/callback.php" />
-        <option value="$PROJECT_DIR$/tests/test.php" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/tests/callback.php" />
         <option value="$PROJECT_DIR$/tests/batchpush.php" />
         <option value="$PROJECT_DIR$/tests/config.php" />
+        <option value="$PROJECT_DIR$/tests/test.php" />
       </list>
     </option>
   </component>
@@ -204,6 +203,12 @@
               <item name="xclient" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="tests" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="xclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xclient" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="tests" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="sql" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -246,18 +251,18 @@
       <option name="presentableId" value="Default" />
       <updated>1520408354236</updated>
       <workItem from="1520408355595" duration="33353000" />
-      <workItem from="1520816203449" duration="8840000" />
+      <workItem from="1520816203449" duration="9163000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42193000" />
+    <option name="totallyTimeSpent" value="42516000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -345,7 +350,7 @@
         <state relative-caret-position="1173">
           <caret line="57" column="14" lean-forward="false" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
           <folding>
-            <element signature="e#185#202#0#PHP" expanded="true" />
+            <element signature="e#183#200#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -482,14 +487,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/callback.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -514,31 +511,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test.php">
+    <entry file="file://$PROJECT_DIR$/tests/callback.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="19" column="33" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="33" />
-          <folding>
-            <element signature="e#185#202#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="23">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/sql/point_logs_queue.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/batchpush.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="842">
-          <caret line="40" column="66" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="66" />
+        <state relative-caret-position="406">
+          <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="52" />
           <folding>
             <element signature="e#117#142#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/config.php">
+    <entry file="file://$PROJECT_DIR$/tests/test.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
-          <folding />
+        <state relative-caret-position="391">
+          <caret line="22" column="2" lean-forward="true" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+          <folding>
+            <element signature="e#183#200#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

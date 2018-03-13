@@ -12,8 +12,6 @@ require_once __DIR__ . '/config.php';
 use Xgold\Helper\GzlHttp;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-
-
 // 数据库连接配置
 $capsule = new Capsule;
 $capsule->addConnection($config['database']);
@@ -39,7 +37,5 @@ if ($plqs->count()) {
     ];
     $data['sign'] = GzlHttp::getSign($data);
     $rsData = GzlHttp::post($config['base_uri'] . 'pointlogs/batch', $data);
-    var_dump($rsData);
-//    $capsule::table('point_logs_queue')->whereIn('id', $ids)->update(['status'=>1]);
-
+    $capsule::table('point_logs_queue')->whereIn('id', $ids)->update(['status'=>1]);
 }

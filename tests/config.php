@@ -1,8 +1,9 @@
 <?php
 
-
+// 替换成真实的配置
 $config = [
-    'base_uri' => 'http://xgold.stg.transsion.net/v1/',
+    'base_uri' => 'http://api.xgold.infinix.test/v1/',
+    'appid' => 1,
     'database' => [
         'driver'    => 'mysql',
         'host'      => '192.168.33.10',
