@@ -13,6 +13,8 @@ $postData = $_POST;
 
 // 验证签名
 
+
+
 if(GzlHttp::checkSign($postData) === true) {
     $data = $postData['data'];
 
