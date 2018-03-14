@@ -74,7 +74,7 @@ class Client {
         ];
         $sign = GzlHttp::getSign($data);
         $data['sign'] = $sign;
-        $url = $this->getConfig('members_batch_point');
+        $url = $this->getConfig('members_point');
         $rsData = GzlHttp::post($url, $data);
 
         return $rsData['data']['point'];
@@ -85,23 +85,19 @@ class Client {
      * @return mixed
      */
     public  function getBatchMemberXgold($uids) {
-
-
         $data = [
-            'ids'        => $uids,
+            'uids'        => $uids,
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data);
         $data['sign'] = $sign;
-        $url = $this->getConfig('members_point');
+        $url = $this->getConfig('members_batch_point');
         $rsData = GzlHttp::post($url, $data);
 
-        return $rsData['data']['point'];
+        return $rsData['data'];
     }
 
     public  function getPointlogsDetail($id) {
-
-
         $data = [
             'id'        => $id,
             'timestamp' => time(),
@@ -124,12 +120,8 @@ class Client {
             'related' => $related,
         ];
 
-
         if ($type == 1) {
-
-
             $capsule = new Capsule;
-
             // 创建链接
             $database = $this->getConfig('database');
             $capsule->addConnection($database);
@@ -151,17 +143,6 @@ class Client {
             $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
             return $rsData['data']['quid'];
         }
-
-    }
-
-
-    /**
-     * 回调
-     *
-     */
-    public function callback($id) {
-        // 业务处理
-        echo "ok";
     }
 
 

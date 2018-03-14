@@ -11,21 +11,32 @@ require_once __DIR__ .'/../vendor/autoload.php';
 require __DIR__ .'/config.php';
 
 use Xgold\Client;
-use Illuminate\Database\Capsule\Manager as Capsule;
-
 
 // xclient 使用
 $xgoldClient = new Client($config);
-$uid = 825191;
+
+$uids = [825191,2345189];
+$uid = $uids[rand(0,1)];
+//$uid = 2345189;
 // 积分变更
-$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 1, '23434111');
-var_dump($rs);
-//
-//// 查询积分记录
+//$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 1, time());
+//var_dump($rs);
+
+// 查询积分记录
 //$tid = 180; // 交易ID
 //$rs = $xgoldClient->getPointlogsDetail($tid);
-//var_dump($rs);
-//
-//// 获取用户积分
+
+// 获取用户积分
 //$rs = $xgoldClient->getMemberXgold($uid);
+
+// 批量查询积分 返回一个数组
+//$uids = '825191-2345189';
+//$rs = $xgoldClient->getBatchMemberXgold($uids);
+
+
+
+
 //var_dump($rs);
+
+// 回调 传入
+
