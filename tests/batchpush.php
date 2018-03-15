@@ -19,6 +19,8 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $plqs = $capsule::table('point_logs_queue')->where('status', 0)->orderBy('created_at')->limit(100)->get();
+
+// exit('debug....');
 if ($plqs->count()) {
     $dataString = '';
     $ids = [];
@@ -31,8 +33,10 @@ if ($plqs->count()) {
         'batch_data' => $dataString,
         'timestamp'  => time(),
     ];
+
     $data['sign'] = GzlHttp::getSign($data);
     $rsData = GzlHttp::post($config['base_uri'] . 'pointlogs/batch', $data);
+
     $finishedIds = [];
     foreach ($rsData['data'] as $item) {
         $finishedIds[] = $item['id'];

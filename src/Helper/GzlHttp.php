@@ -61,7 +61,6 @@ class GzlHttp {
         if (time() - $timestamp > 3 * 60000) {
             return self::SIGN_TIME_ERROR;
         }
-
         unset($data['sign']);
         ksort($data);
 
