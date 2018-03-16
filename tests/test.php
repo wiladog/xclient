@@ -17,6 +17,8 @@ $xgoldClient = new Client($config);
 
 $uids = [825191,2345189];
 $uid = $uids[rand(0,1)];
+
+
 //$uid = 2345189;
 // 积分变更
 //$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 1, time());
