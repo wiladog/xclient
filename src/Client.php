@@ -35,7 +35,6 @@ class Client {
      *              'prefix'    => '',
      *          ],
      *     ]);
-
      */
 
     public function __construct($config = []) {
@@ -45,7 +44,7 @@ class Client {
 
 //$url = 'http://xgold.mez100.com.cn/v1/members/point';
 
-    public  function getConfig($key) {
+    public function getConfig($key) {
         $xgold_base_url = 'http://xgold.mez100.com.cn/v1/';
         $xgold_base_url = 'http://api.xgold.infinix.test/index.php/v1/';
 
@@ -53,19 +52,20 @@ class Client {
         $config = $this->config;
         $database = $config['database'];
         $allConfig = [
-            'members_point'    => $config['base_uri'] . 'members/point', // 获取用户积分
-            'members_batch_point'    => $config['base_uri'] . 'members/batch/point', // 获取用户积分
-            'pointlogs_detail' => $config['base_uri'] . 'pointlogs/detail', // 交易查询
-            'pointlogs'        => $config['base_uri'] . 'pointlogs', // 积分变更
-            'pointlogs_batch'  => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
-            'database'         => $database,
+            'members_point'        => $config['base_uri'] . 'members/point', // 获取用户积分
+            'members_batch_point'  => $config['base_uri'] . 'members/batch/point', // 获取用户积分
+            'pointlogs_detail'     => $config['base_uri'] . 'pointlogs/detail', // 交易查询
+            'pointlogs'            => $config['base_uri'] . 'pointlogs', // 积分变更
+            'pointlogs_batch'      => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
+            'pointlogs_alteration' => $config['base_uri'] . 'pointlogs/alteration', // 积分变更
+            'database'             => $database,
         ];
 
         return $allConfig[$key];
     }
 
 
-    public  function getMemberXgold($uid) {
+    public function getMemberXgold($uid) {
 
 
         $data = [
@@ -84,9 +84,9 @@ class Client {
      * @param string $uids eg. 1-2-3-4
      * @return mixed
      */
-    public  function getBatchMemberXgold($uids) {
+    public function getBatchMemberXgold($uids) {
         $data = [
-            'uids'        => $uids,
+            'uids'      => $uids,
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data);
@@ -97,7 +97,7 @@ class Client {
         return $rsData['data'];
     }
 
-    public  function getPointlogsDetail($id) {
+    public function getPointlogsDetail($id) {
         $data = [
             'id'        => $id,
             'timestamp' => time(),
@@ -111,7 +111,21 @@ class Client {
 
     }
 
-    public  function pointlogs($uid, $appid, $point, $type, $related) {
+    /**
+     * 积分确认
+     * @param $data
+     */
+    public function alteration($data) {
+        $data['timestamp'] = time();
+        $sign = GzlHttp::getSign($data);
+        $data['sign'] = $sign;
+        $url = $this->getConfig('pointlogs_alteration');
+        $rsData = GzlHttp::post($url, $data);
+
+        return $rsData['data']['rs'];
+    }
+
+    public function pointlogs($uid, $appid, $point, $type, $related) {
         $data = [
             'uid'     => $uid,
             'appid'   => $appid,
@@ -133,7 +147,7 @@ class Client {
             $data['created_at'] = $cur_time;
             $data['updated_at'] = $cur_time;
             $rs = Capsule::table('point_logs_queue')->insert([$data]);
-            if($rs) {
+            if ($rs) {
                 return true;
             } else {
                 return false;
@@ -141,6 +155,7 @@ class Client {
         } else {
             $data['sign'] = GzlHttp::getSign($data);
             $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
+
             return $rsData['data']['quid'];
         }
     }
