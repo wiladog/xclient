@@ -17,12 +17,11 @@ $xgoldClient = new Client($config);
 
 $uids = [825191,2345189];
 $uid = $uids[rand(0,1)];
-
-
+$related = time();
+//$related = '';
 //$uid = 2345189;
 // 积分变更
-//$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 1, time());
-//var_dump($rs);
+$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 2, $related);
 
 // 查询积分记录
 //$tid = 180; // 交易ID
@@ -35,10 +34,5 @@ $uid = $uids[rand(0,1)];
 //$uids = '825191-2345189';
 //$rs = $xgoldClient->getBatchMemberXgold($uids);
 
-
-
-
-//var_dump($rs);
-
+var_dump($rs);
 // 回调 传入
-

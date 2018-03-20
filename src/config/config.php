@@ -8,7 +8,11 @@
 
 
 $config = [
-    'base_uri' => 'http://api.xgold.infinix.test/index.php/v1/',
+    // Xgold API 地址
+    'base_uri' => 'http://api.xgold.infinix.test/v1/',
+    // Xgold 中的APPID
+    'appid' => 1,
+    // 数据库配置
     'database' => [
         'driver'    => 'mysql',
         'host'      => '192.168.33.10',

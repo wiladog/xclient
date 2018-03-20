@@ -9,6 +9,7 @@
 namespace Xgold;
 
 use Xgold\Helper\GzlHttp;
+use Ramsey\Uuid\Uuid;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -45,9 +46,6 @@ class Client {
 //$url = 'http://xgold.mez100.com.cn/v1/members/point';
 
     public function getConfig($key) {
-        $xgold_base_url = 'http://xgold.mez100.com.cn/v1/';
-        $xgold_base_url = 'http://api.xgold.infinix.test/index.php/v1/';
-
 
         $config = $this->config;
         $database = $config['database'];
@@ -59,6 +57,7 @@ class Client {
             'pointlogs_batch'      => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
             'pointlogs_alteration' => $config['base_uri'] . 'pointlogs/alteration', // 积分变更
             'database'             => $database,
+            'secret_key'           => $config['secret_key'],
         ];
 
         return $allConfig[$key];
@@ -72,7 +71,7 @@ class Client {
             'id'        => $uid,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data);
+        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('members_point');
         $rsData = GzlHttp::post($url, $data);
@@ -89,7 +88,7 @@ class Client {
             'uids'      => $uids,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data);
+        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('members_batch_point');
         $rsData = GzlHttp::post($url, $data);
@@ -102,7 +101,7 @@ class Client {
             'id'        => $id,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data);
+        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('pointlogs_detail');
         $rsData = GzlHttp::post($url, $data);
@@ -117,7 +116,7 @@ class Client {
      */
     public function alteration($data) {
         $data['timestamp'] = time();
-        $sign = GzlHttp::getSign($data);
+        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('pointlogs_alteration');
         $rsData = GzlHttp::post($url, $data);
@@ -126,12 +125,14 @@ class Client {
     }
 
     public function pointlogs($uid, $appid, $point, $type, $related) {
+        $id = Uuid::uuid1()->toString();
         $data = [
             'uid'     => $uid,
             'appid'   => $appid,
             'point'   => $point,
             'type'    => $type,
             'related' => $related,
+            'id'      => $id,
         ];
 
         if ($type == 1) {
@@ -153,7 +154,7 @@ class Client {
                 return false;
             }
         } else {
-            $data['sign'] = GzlHttp::getSign($data);
+            $data['sign'] = GzlHttp::getSign($data, $this->getConfig('secret_key'));
             $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
 
             return $rsData['data']['quid'];

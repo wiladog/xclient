@@ -6,6 +6,8 @@ $config = [
     'base_uri' => 'http://api.xgold.infinix.test/v1/',
     // Xgold 中的APPID
     'appid' => 1,
+    // Xgold 中的通信密钥
+    'secret_key' => 'yidingyaobaomi',
     // 数据库配置
     'database' => [
         'driver'    => 'mysql',
