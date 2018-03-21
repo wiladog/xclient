@@ -63,15 +63,41 @@ class Client {
         return $allConfig[$key];
     }
 
+    /**
+     * check callback
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function checkCallback($data) {
+
+        $capsule = new Capsule;
+        $database = $this->getConfig('database');
+        $capsule->addConnection($database);
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
+
+        // ->where($data)
+        $rs = Capsule::table('point_logs_queue')->find(['id' => $data['id']]);
+
+        if ($rs) {
+            if ($rs->id == $data['id'] && $rs->point == $data['point'] && $rs->type == $data['type'] && $rs->uid == $data['uid']) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 
     public function getMemberXgold($uid) {
-
-
         $data = [
             'id'        => $uid,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
+        $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('members_point');
         $rsData = GzlHttp::post($url, $data);
@@ -88,7 +114,7 @@ class Client {
             'uids'      => $uids,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
+        $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('members_batch_point');
         $rsData = GzlHttp::post($url, $data);
@@ -101,7 +127,7 @@ class Client {
             'id'        => $id,
             'timestamp' => time(),
         ];
-        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
+        $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('pointlogs_detail');
         $rsData = GzlHttp::post($url, $data);
@@ -116,7 +142,7 @@ class Client {
      */
     public function alteration($data) {
         $data['timestamp'] = time();
-        $sign = GzlHttp::getSign($data,$this->getConfig('secret_key'));
+        $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('pointlogs_alteration');
         $rsData = GzlHttp::post($url, $data);
