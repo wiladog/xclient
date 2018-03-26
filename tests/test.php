@@ -20,18 +20,9 @@ $uid = $uids[rand(0, 1)];
 $related = time();
 //$related = '';
 //$uid = 2345189;
+
 // 积分变更
-//$rs = $xgoldClient->pointlogs($uid, $config['appid'], 200, 1, $related);
-
-// 测试检测回调
-$data = [
-    'id'      => '0bc7ad78-2cd2-11e8-9449-acde48001122',
-    'uid'     => 2345189,
-    'point'   => 200,
-    'type'  => 1,
-];
-$rs = $xgoldClient->checkCallback($data);
-
+$rs = $xgoldClient->pointlogs($uid, 100, 1, $related);
 // 查询积分记录
 //$tid = 180; // 交易ID
 //$rs = $xgoldClient->getPointlogsDetail($tid);

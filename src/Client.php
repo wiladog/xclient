@@ -24,8 +24,16 @@ class Client {
      * Here's an example of creating a client using a base_uri and an array
      *
      *     $client = new Client([
-     *         'base_uri'        => 'http://xgold.mez100.com.cn/v1/',
-     *         'database'         => [
+     *           // Xgold API 地址
+     *          'base_uri'                    => 'http://api.xgold.infinix.test/v1/',
+     *           // Xgold 中的APPID
+     *           'appid'                       => 1,
+     *           // Xgold 中的通信密钥
+     *           'secret_key'                  => 'yidingyaobaomi',
+     *           // 本地积分队列表名称
+     *           'point_logs_queue_table_name' => 'point_logs_queue',
+     *           // 数据库配置
+     *           'database'                    => [
      *              'driver'    => 'mysql',
      *              'host'      => '192.168.33.10',
      *              'database'  => 'xgold_infinix_dev',
@@ -34,7 +42,7 @@ class Client {
      *              'charset'   => 'utf8mb4',
      *              'collation' => 'utf8mb4_bin',
      *              'prefix'    => '',
-     *          ],
+     *           ],
      *     ]);
      */
 
@@ -43,21 +51,22 @@ class Client {
         $this->config = $config;
     }
 
-//$url = 'http://xgold.mez100.com.cn/v1/members/point';
 
     public function getConfig($key) {
 
         $config = $this->config;
         $database = $config['database'];
         $allConfig = [
-            'members_point'        => $config['base_uri'] . 'members/point', // 获取用户积分
-            'members_batch_point'  => $config['base_uri'] . 'members/batch/point', // 获取用户积分
-            'pointlogs_detail'     => $config['base_uri'] . 'pointlogs/detail', // 交易查询
-            'pointlogs'            => $config['base_uri'] . 'pointlogs', // 积分变更
-            'pointlogs_batch'      => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
-            'pointlogs_alteration' => $config['base_uri'] . 'pointlogs/alteration', // 积分变更
-            'database'             => $database,
-            'secret_key'           => $config['secret_key'],
+            'members_point'               => $config['base_uri'] . 'members/point', // 获取用户积分
+            'members_batch_point'         => $config['base_uri'] . 'members/batch/point', // 获取用户积分
+            'pointlogs_detail'            => $config['base_uri'] . 'pointlogs/detail', // 交易查询
+            'pointlogs'                   => $config['base_uri'] . 'pointlogs', // 积分变更
+            'pointlogs_batch'             => $config['base_uri'] . 'pointlogs/batch', // 批量 积分变更
+            'pointlogs_alteration'        => $config['base_uri'] . 'pointlogs/alteration', // 积分变更确认
+            'database'                    => $database,
+            'secret_key'                  => $config['secret_key'],
+            'point_logs_queue_table_name' => $config['point_logs_queue_table_name'],
+            'appid'                       => $config['appid'],
         ];
 
         return $allConfig[$key];
@@ -76,9 +85,8 @@ class Client {
         $capsule->addConnection($database);
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
-
         // ->where($data)
-        $rs = Capsule::table('point_logs_queue')->find(['id' => $data['id']]);
+        $rs = Capsule::table($this->getConfig('point_logs_queue_table_name'))->find(['id' => $data['id']]);
 
         if ($rs) {
             if ($rs->id == $data['id'] && $rs->point == $data['point'] && $rs->type == $data['type'] && $rs->uid == $data['uid']) {
@@ -95,6 +103,7 @@ class Client {
     public function getMemberXgold($uid) {
         $data = [
             'id'        => $uid,
+            'appid'     => $this->getConfig('appid'),
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
@@ -112,6 +121,7 @@ class Client {
     public function getBatchMemberXgold($uids) {
         $data = [
             'uids'      => $uids,
+            'appid'     => $this->getConfig('appid'),
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
@@ -125,6 +135,7 @@ class Client {
     public function getPointlogsDetail($id) {
         $data = [
             'id'        => $id,
+            'appid'     => $this->getConfig('appid'),
             'timestamp' => time(),
         ];
         $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
@@ -142,6 +153,7 @@ class Client {
      */
     public function alteration($data) {
         $data['timestamp'] = time();
+        $data['appid'] = $this->getConfig('appid');
         $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
         $data['sign'] = $sign;
         $url = $this->getConfig('pointlogs_alteration');
@@ -150,11 +162,11 @@ class Client {
         return $rsData['data']['rs'];
     }
 
-    public function pointlogs($uid, $appid, $point, $type, $related) {
+    public function pointlogs($uid, $point, $type, $related) {
         $id = Uuid::uuid1()->toString();
         $data = [
             'uid'     => $uid,
-            'appid'   => $appid,
+            'appid'   => $this->getConfig('appid'),
             'point'   => $point,
             'type'    => $type,
             'related' => $related,
@@ -173,17 +185,24 @@ class Client {
             $cur_time = time();
             $data['created_at'] = $cur_time;
             $data['updated_at'] = $cur_time;
-            $rs = Capsule::table('point_logs_queue')->insert([$data]);
+            $rs = Capsule::table($this->getConfig('point_logs_queue_table_name'))->insert([$data]);
             if ($rs) {
                 return true;
             } else {
                 return false;
             }
         } else {
+            $data['timestamp'] = time();
             $data['sign'] = GzlHttp::getSign($data, $this->getConfig('secret_key'));
             $rsData = GzlHttp::post($this->getConfig('pointlogs'), $data);
 
-            return $rsData['data']['quid'];
+            if ($rsData['status'] !== true) {
+                return false;
+            } else {
+                return $rsData['data']['quid'];
+            }
+
+
         }
     }
 

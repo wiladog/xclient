@@ -54,11 +54,10 @@ class GzlHttp {
      * @return bool|string
      */
     public static function checkSign($data, $key = 'yidingyaobaomi') {
-        return true;
         $sign = $data['sign'];
         $timestamp = $data['timestamp'];
 
-        if (time() - $timestamp > 3 * 60000) {
+        if (time() - $timestamp > 2 * 60) {
             return self::SIGN_TIME_ERROR;
         }
         unset($data['sign']);
