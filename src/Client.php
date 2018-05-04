@@ -57,6 +57,7 @@ class Client {
         $config = $this->config;
         $database = $config['database'];
         $allConfig = [
+            'members_history'             => $config['base_uri'] . 'members/history', // 获取用户积分
             'members_point'               => $config['base_uri'] . 'members/point', // 获取用户积分
             'members_batch_point'         => $config['base_uri'] . 'members/batch/point', // 获取用户积分
             'pointlogs_detail'            => $config['base_uri'] . 'pointlogs/detail', // 交易查询
@@ -97,6 +98,20 @@ class Client {
         } else {
             return false;
         }
+    }
+
+    public function getMemberXgoldHistory($uid) {
+        $data = [
+            'id'        => $uid,
+            'appid'     => $this->getConfig('appid'),
+            'timestamp' => time(),
+        ];
+        $sign = GzlHttp::getSign($data, $this->getConfig('secret_key'));
+        $data['sign'] = $sign;
+        $url = $this->getConfig('members_history');
+        $rsData = GzlHttp::post($url, $data);
+
+        return $rsData['data'];
     }
 
 
