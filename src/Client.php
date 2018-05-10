@@ -214,7 +214,7 @@ class Client {
             if ($rsData['status'] !== true) {
                 return false;
             } else {
-                return $rsData['data']['quid'];
+                return $id;
             }
 
 

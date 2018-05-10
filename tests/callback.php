@@ -31,7 +31,7 @@ if(GzlHttp::checkSign($postData) === true) {
         $result['id'] = $item['id'];
         $result['related'] = $item['related'];
         $result['point'] = $item['point'];
-
+        $result['type'] = $item['type'];
         // 得到 status  succeed 或者  failed
         $result['status'] = 'succeed'; // or failed
         $results[] = $result;

@@ -22,7 +22,21 @@ $related = time();
 //$uid = 2345189;
 
 // 积分变更
-$rs = $xgoldClient->pointlogs($uid, 100, 1, $related);
+
+
+for ($i = 1; $i <= 150; $i++) {
+    $rs = $xgoldClient->pointlogs($uid, 100, 1, $related);
+    var_dump($rs.'-'.$i);
+}
+
+
+
+//$alterationData = [
+//	'id' => 'eb528ad4-5262-11e8-8d64-000c293f0be7',
+//    'status' => 2,
+//    'related' => time(),
+//];
+//$rs = $xgoldClient->alteration($alterationData);
 // 查询积分记录
 //$tid = 180; // 交易ID
 //$rs = $xgoldClient->getPointlogsDetail($tid);
@@ -34,5 +48,5 @@ $rs = $xgoldClient->pointlogs($uid, 100, 1, $related);
 //$uids = '825191-2345189';
 //$rs = $xgoldClient->getBatchMemberXgold($uids);
 
-var_dump($rs);
+//var_dump($rs);
 // 回调 传入
